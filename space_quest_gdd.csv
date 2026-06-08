@@ -1,0 +1,148 @@
+SECTION,FIELD,CONTENT (Tiếng Việt / English)
+
+OVERVIEW,Tên Game,Space Quest
+OVERVIEW,Thể Loại,Action / Shoot-em-up (Hành động / Bắn súng)
+OVERVIEW,Nền Tảng,Unity 2D
+OVERVIEW,Mô Tả,Một game bắn súng chiều ngang (horizontal shooter) nơi người chơi điều khiển một tàu vũ trụ bay vào không gian để chống lại các kẻ thù và chướng ngại vật. Người chơi phải sống sót bằng cách né tránh hoặc tiêu diệt những mối đe dọa. / A horizontal space shooter where players control a spaceship flying through space to fight enemies and obstacles. Players must survive by dodging or destroying threats.
+OVERVIEW,Lõi Trò Chơi,Survival + Combat + Progression - người chơi sống sót càng lâu càng tốt, chiến đấu với kẻ thù, và nâng cấp sức mạnh
+
+GAME ELEMENT,Tên,Player (Người Chơi)
+GAME ELEMENT,Mô Tả,Nhân vật chính mà người chơi điều khiển - một tàu vũ trụ với khả năng di chuyển 2D (trên/dưới/trái/phải)
+GAME ELEMENT,Chức Năng Chính,Điều khiển di chuyển; Bắn phaser; Kích hoạt Boost để tăng tốc độ thế giới
+GAME ELEMENT,Thuộc Tính,Health: 5 (tối đa); Energy: 50 (cho boost); Speed: 2; Experience & Level system (tối đa 30 cấp)
+GAME ELEMENT,Ghi Chú,Sử dụng Rigidbody2D; Có đạn sáng lên khi bị đánh; Explosion effect khi chết
+GAME ELEMENT,IMG,Player_Left animation / Player sprite sheets
+
+GAME ELEMENT,Tên,Phaser Weapon (Vũ Khí Phaser)
+GAME ELEMENT,Mô Tả,Hệ thống vũ khí chính của người chơi - bắn các viên đạn phaser năng lượng
+GAME ELEMENT,Chức Năng Chính,Bắn đạn về phía trước; Có thể nâng cấp với mỗi cấp độ
+GAME ELEMENT,Thuộc Tính,Có nhiều cấp độ với stats khác nhau: tốc độ (speed), sát thương (damage), kích thước (size), số lượng đạn (amount), tầm bắn (range)
+GAME ELEMENT,Ghi Chú,Mục tiêu chính là tiêu diệt kẻ thù từ xa; Có thể bắn nhiều viên cùng lúc ở các cấp cao
+GAME ELEMENT,IMG,Phaser weapon sprite / Bullet effects
+
+GAME ELEMENT,Tên,Boss 1 (Enemy - Kẻ Thù Chính)
+GAME ELEMENT,Mô Tả,Một kẻ thù hùng mạnh xuất hiện sau khi tiêu diệt 5 kẻ thù thường
+GAME ELEMENT,Chức Năng Chính,Tấn công người chơi; Có 2 trạng thái (Patrol & Charge); Gây sát thương khi va chạm
+GAME ELEMENT,Thuộc Tính,Sát thương cao; HP cao; Có animation Boss1_Charge; Phản ứng với boost của người chơi
+GAME ELEMENT,Ghi Chú,Xuất hiện từ phía bên phải; Boss1 animation; Âm thanh bossSpawn và bossCharge
+GAME ELEMENT,IMG,Boss1 sprite sheets / Boss1_Charge animation
+
+GAME ELEMENT,Tên,Boss 2 (Enemy - Kẻ Thù Thứ 2)
+GAME ELEMENT,Mô Tả,Kẻ thù boss thứ hai với cơ chế khác nhau so với Boss 1
+GAME ELEMENT,Chức Năng Chính,Di chuyển theo chiều ngang; Chuyển đổi giữa Idle State (chậm) và Charge State (nhanh)
+GAME ELEMENT,Thuộc Tính,Sát thương cao; HP cao; Speed: Idle 0.2f, Charge 3.5-4f
+GAME ELEMENT,Ghi Chú,Có animation charging; Hành vi khác biệt so với Boss 1
+GAME ELEMENT,IMG,Boss2 sprite sheets
+
+GAME ELEMENT,Tên,Locustmorph (Enemy - Lảng Quăng)
+GAME ELEMENT,Mô Tả,Kẻ thù nhỏ di chuyển theo chiều dọc với nhiều biến thể hình ảnh
+GAME ELEMENT,Chức Năng Chính,Tấn công người chơi; Chuyển sang Charge Mode khi HP dưới 50%
+GAME ELEMENT,Thuộc Tính,Có nhiều biến thể (enemyVariant); Di chuyển Y ngẫu nhiên; Speed X: 0.1-0.6 (Idle), -4 đến -6 (Charge)
+GAME ELEMENT,Ghi Chú,Có âm thanh locustCharge khi tấn công; Tự động đảo hướng khi ra khỏi ranh giới màn hình
+GAME ELEMENT,IMG,Locustmorph sprites (nhiều frame)
+
+GAME ELEMENT,Tên,Asteroid (Chướng Ngại Vật)
+GAME ELEMENT,Mô Tả,Tiểu hành tinh bay qua màn hình gây sát thương cho người chơi
+GAME ELEMENT,Chức Năng Chính,Gây sát thương khi va chạm; Bị hủy khi bị bắn; Đốc người chơi nhận kinh nghiệm
+GAME ELEMENT,Thuộc Tính,HP: 3 (tối đa); Sát thương: 1; Kinh nghiệm: 1; Kích thước ngẫu nhiên 0.6-1.0
+GAME ELEMENT,Ghi Chú,Xuất hiện từ bên trái; Có va chạm vật lý; Có 3 sprite khác nhau được chọn ngẫu nhiên
+GAME ELEMENT,IMG,Asteroid sprites (3 loại)
+
+GAME ELEMENT,Tên,Energy System (Hệ Thống Năng Lượng)
+GAME ELEMENT,Mô Tả,Thanh năng lượng hiển thị trên UI; Tiêu thụ khi kích hoạt Boost
+GAME ELEMENT,Chức Năng Chính,Điều khiển khả năng Boost của người chơi
+GAME ELEMENT,Thuộc Tính,Max Energy: 50; Regen Rate: 0.05 per frame; Boost Cost: 0.5 per frame; Yêu cầu tối thiểu 10 để kích hoạt
+GAME ELEMENT,Ghi Chú,Hiển thị dưới dạng Slider trên UI; Người chơi không thể Boost nếu năng lượng < 10
+GAME ELEMENT,IMG,Energy UI Slider
+
+GAME ELEMENT,Tên,Health System (Hệ Thống Máu)
+GAME ELEMENT,Mô Tả,Thanh máu hiển thị trên UI; Giảm khi người chơi bị tấn công
+GAME ELEMENT,Chức Năng Chính,Theo dõi sức khỏe của người chơi
+GAME ELEMENT,Thuộc Tính,Max Health: 5 (cơ sở); Tăng +1 mỗi lần level up; Giảm 1 khi bị va chạm
+GAME ELEMENT,Ghi Chú,Game Over khi Health <= 0; Nâng cấp Health qua LevelUp
+GAME ELEMENT,IMG,Health UI Slider
+
+GAME ELEMENT,Tên,Experience & Level System (Hệ Thống Kinh Nghiệm & Cấp Độ)
+GAME ELEMENT,Mô Tả,Người chơi nhận kinh nghiệm từ tiêu diệt kẻ thù và nâng cấp
+GAME ELEMENT,Chức Năng Chính,Tăng cấp độ → Nâng cấp vũ khí + tăng Health
+GAME ELEMENT,Thuộc Tính,Max Level: 30; EXP tăng dần với công thức: playerLevels[i] = playerLevels[i-1] * 1.1 + 15
+GAME ELEMENT,Ghi Chú,Mỗi cấp tăng kích hoạt LevelUp() - Nâng cấp Phaser Weapon và Health; EXP hiển thị trên UI
+GAME ELEMENT,IMG,Experience UI Slider / Level Display
+
+GAME ELEMENT,Tên,Boost Mechanic (Cơ Chế Tăng Tốc)
+GAME ELEMENT,Mô Tả,Tính năng tăng tốc độ thế giới với cost năng lượng
+GAME ELEMENT,Chức Năng Chính,Tăng tốc độ toàn bộ game từ 1x lên 7x; Người chơi di chuyển nhanh hơn; Kẻ thù di chuyển nhanh hơn
+GAME ELEMENT,Thuộc Tính,World Speed Multiplier: 7f; Tiêu thụ 0.5 Energy per frame; Engine particle effect chạy
+GAME ELEMENT,Ghi Chú,Không thể Boost nếu Energy < 10; Tự động tắt nếu Energy dùng hết; Có âm thanh fire
+GAME ELEMENT,IMG,Engine effect particle (boosting animation)
+
+GAME ELEMENT,Tên,UI Controller (Bộ Điều Khiển UI)
+GAME ELEMENT,Mô Tả,Quản lý tất cả các UI sliders và text trên màn hình
+GAME ELEMENT,Chức Năng Chính,Cập nhật Energy Slider; Cập nhật Health Slider; Cập nhật Experience Slider; Hiển thị Pause Panel
+GAME ELEMENT,Thuộc Tính,Singleton pattern; Kết nối với tất cả các Slider components trên Canvas
+GAME ELEMENT,Ghi Chú,Hiển thị giá trị hiện tại / tối đa cho mỗi thanh; Pause Panel có thể bật tắt
+GAME ELEMENT,IMG,UI Layout screenshot / Pause Panel
+
+GAME ELEMENT,Tên,Audio Manager (Quản Lý Âm Thanh)
+GAME ELEMENT,Mô Tả,Quản lý tất cả các sound effects trong game
+GAME ELEMENT,Chức Năng Chính,Phát các âm thanh khác nhau cho hành động khác nhau
+GAME ELEMENT,Thuộc Tính,AudioSources: shoot, hit, fire (boost), ice (death), boom2/3, bossCharge, bossSpawn, locustCharge, v.v.
+GAME ELEMENT,Ghi Chú,Có pitch variation cho một số âm thanh (0.7-1.3 random pitch); Singleton pattern
+GAME ELEMENT,IMG,Audio Manager component screenshot
+
+WIN/LOSE,Điều Kiện Thắng,Không có điều kiện thắng cụ thể - Trò chơi tập trung vào Survival/Endless Mode
+WIN/LOSE,Điều Kiện Thua,Health của người chơi <= 0 → Game Over screen; Điều này xảy ra khi bị va chạm quá nhiều lần
+WIN/LOSE,Game Over Flow,1. Người chơi bị đánh hạ (Health = 0); 2. Explosion effect được tạo; 3. Chờ 2 giây; 4. Load "GameOver" scene
+WIN/LOSE,Khôi Phục / Retry,Từ GameOver screen có thể: New Game (restart Level1) hoặc Quit Game (thoát ứng dụng)
+
+GAME RULES,Luật 1: Điều Khiển,"WASD hoặc Arrow Keys: Di chuyển 4 hướng; Space hoặc gamepad button: Activate Boost"
+GAME RULES,Luật 2: Bắn Súng,Right Shift hoặc Fire1 button: Bắn phaser weapon liên tục
+GAME RULES,Luật 3: Boost,"Tăng tốc độ thế giới; Tiêu thụ Energy; Không thể bắn được vũ khí hiệu quả khi boost (kẻ thù nhanh)"
+GAME RULES,Luật 4: Sát Thương,"Va chạm với Asteroid hoặc Enemy gây sát thương; Phaser bullets tiêu diệt kẻ thù; Enemies cũng bắn/tấn công"
+GAME RULES,Luật 5: Kinh Nghiệm,"Tiêu diệt kẻ thù nhận EXP; Đủ EXP lên cấp → Nâng cấp Weapon + Health"
+GAME RULES,Luật 6: Pause,ESC hoặc gamepad button: Pause/Unpause game (dừng thời gian)
+GAME RULES,Luật 7: Boss Spawn,Sau khi tiêu diệt 5 kẻ thù thường → Boss 1 xuất hiện từ phía phải
+
+GAME LEVEL,Cấp Độ,Level 1 (Duy nhất)
+GAME LEVEL,Mô Tả,Màn hình chiều ngang với không gian 2D; Kẻ thù và tiểu hành tinh xuất hiện từ bên phải/bên trái
+GAME LEVEL,Thiết Kế,Spawn zones: Min(-1, -5 to 5) Max(15, -5 to 5); Camera nhìn từ trên xuống (top-down view)
+GAME LEVEL,Độ Khó,Tăng dần qua waves - Mỗi wave có nhịp độ sinh quái cao hơn; Sau 5 kẻ thù → Boss xuất hiện
+GAME LEVEL,Tile/Asset,Có thể là không gian trống hoặc background hành tinh
+
+GAME ITEM,Tên Item,Experience Points (EXP)
+GAME ITEM,Loại,Collectible / Reward
+GAME ITEM,Mô Tả,Nhận được khi tiêu diệt kẻ thù; Tích lũy để nâng cấp
+GAME ITEM,Giá Trị,Asteroid: 1 EXP; Enemy: Tùy theo loại (Locustmorph, Boss, v.v.)
+GAME ITEM,Ghi Chú,Tự động nhận khi kẻ thù chết (nếu giveExperience = true)
+
+GAME ITEM,Tên Item,Health Regeneration (Regenerate on Level Up)
+GAME ITEM,Loại,Passive Buff
+GAME ITEM,Mô Tả,Mỗi lần Level Up → Health tăng 1 điểm
+GAME ITEM,Giá Trị,+1 Max Health per Level; Hiện tại Health được reset bằng Max Health
+GAME ITEM,Ghi Chú,Không có item drop trực tiếp; Buff được kích hoạt tự động
+
+GAME ITEM,Tên Item,Weapon Upgrade (Nâng Cấp Vũ Khí)
+GAME ITEM,Loại,Passive Upgrade
+GAME ITEM,Mô Tả,Mỗi lần Level Up → Phaser Weapon nâng cấp stats
+GAME ITEM,Giá Trị,Bullet speed/damage/size/amount/range tăng tùy cấp độ vũ khí
+GAME ITEM,Ghi Chú,Nâng cấp tự động khi LevelUp()
+
+GAME MECHANIC,Cơ Chế 1: Spawning,"Wave-based spawning: Mỗi wave có số lượng kẻ thù cố định, spawn interval, và object pool"
+GAME MECHANIC,Cơ Chế 2: Object Pooling,"Sử dụng ObjectPooler: Pre-spawn objects, reuse chúng thay vì Instantiate/Destroy liên tục"
+GAME MECHANIC,Cơ Chế 3: World Speed,"Điều khiển tốc độ game chung: Dùng cho Boost mechanic; Ảnh hưởng tất cả di chuyển"
+GAME MECHANIC,Cơ Chế 4: Collision Detection,"2D Physics: Trigger và Rigidbody va chạm; OnCollisionEnter2D được gọi để xử lý sát thương"
+GAME MECHANIC,Cơ Chế 5: Damage System,"Đối tượng có lives/health; TakeDamage() giảm lives; Flash White effect khi bị đánh"
+GAME MECHANIC,Cơ Chế 6: Animation Blending,"Animator sử dụng parameters (moveX, moveY, boosting, charging) để blend animations"
+GAME MECHANIC,Cơ Chế 7: Singleton Pattern,"GameManager, PlayerController, AudioManager, UIController đều dùng Singleton để truy cập global"
+GAME MECHANIC,Cơ Chế 8: Weapon Leveling,"Weapon có múc stats list; Level up tăng index và nâng cấp damage/speed/etc."
+
+CORE LOOP,Bước 1: Nhập Liệu,Người chơi ấn phím di chuyển (WASD) + bắn (Shift) + boost (Space)
+CORE LOOP,Bước 2: Cập Nhật Trạng Thái,PlayerController cập nhật position, energy, boosting state
+CORE LOOP,Bước 3: Sinh Quái,ObjectSpawners tạo enemies theo waves; Boss sinh sau 5 kills
+CORE LOOP,Bước 4: Di Chuyển Kẻ Thù,"Enemies di chuyển theo speed; Boss có AI (Patrol/Charge); Locustmorph có logic riêng"
+CORE LOOP,Bước 5: Bắn Súng,"Phaser bullets được tạo từ pool; Di chuyển về phía trước; Kiểm tra va chạm"
+CORE LOOP,Bước 6: Va Chạm,OnCollisionEnter2D được gọi → Gây sát thương hoặc tiêu diệt
+CORE LOOP,Bước 7: Xử Lý Chết,"Nếu Enemy chết → Tạo explosion effect + phát âm thanh + EXP drop"
+CORE LOOP,Bước 8: Cập Nhật UI,"UIController cập nhật Health/Energy/Experience Sliders"
+CORE LOOP,Bước 9: Kiểm Tra Game Over,"Nếu Health <= 0 → Show Game Over screen sau 2 giây"
+CORE LOOP,Bước 10: Lặp Lại,Quay lại Bước 1; Game chạy liên tục cho đến khi Game Over
