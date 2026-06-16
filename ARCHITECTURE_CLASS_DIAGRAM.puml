@@ -1,0 +1,306 @@
+@startuml Space Quest Class Diagram
+
+!define ABSTRACT abstract
+
+' ==================== MANAGERS ====================
+class GameManager {
+    {static} Instance: GameManager
+    worldSpeed: float
+    adjustedWorldSpeed: float
+    critterCounter: int
+    - boss1Pool: ObjectPooler
+    ---
+    + Pause(): void
+    + QuitGame(): void
+    + GoToMainMenu(): void
+    + GameOver(): void
+    - ShowGameOverScreen(): IEnumerator
+    + SetWorldSpeed(speed: float): void
+}
+
+class UIController {
+    {static} Instance: UIController
+    - energySlider: Slider
+    - energyText: TMP_Text
+    - healthSlider: Slider
+    - healthText: TMP_Text
+    - experienceSlider: Slider
+    - experienceText: TMP_Text
+    + pausePanel: GameObject
+    ---
+    + UpdateEnergySlider(current: float, max: float): void
+    + UpdateHealthSlider(current: float, max: float): void
+    + UpdateExperienceSlider(current: int, max: int): void
+}
+
+class AudioManager {
+    {static} Instance: AudioManager
+    + ice: AudioSource
+    + fire: AudioSource
+    + hit: AudioSource
+    + pause: AudioSource
+    + unpause: AudioSource
+    + boom2/3: AudioSource
+    + bossCharge: AudioSource
+    + bossSpawn: AudioSource
+    + shoot: AudioSource
+    ---
+    + PlaySound(sound: AudioSource): void
+    + PlayModifiedSound(sound: AudioSource): void
+}
+
+class MenuManager {
+    + NewGame(): void
+    + QuitGame(): void
+}
+
+' ==================== PLAYER ====================
+class PlayerController {
+    {static} Instance: PlayerController
+    - rb: Rigidbody2D
+    - animator: Animator
+    - flashWhite: FlashWhiite
+    - playerDirection: Vector2
+    - moveSpeed: float
+    + boosting: bool
+    - energy: float
+    - maxEnergy: float
+    - energyRegen: float
+    - health: float
+    - maxHealth: float
+    - destroyEffectPool: ObjectPooler
+    - engineEffect: ParticleSystem
+    - experience: int
+    - currentLevel: int
+    - maxLevel: int
+    - playerLevels: List<int>
+    ---
+    - EnterBoost(): void
+    + ExitBoost(): void
+    - OnCollisionEnter2D(collision: Collision2D): void
+    + TakeDamage(damage: int): void
+    + GetExperience(exp: int): void
+    + LevelUp(): void
+}
+
+' ==================== WEAPONS ====================
+class Weapon {
+    + weaponLevel: int
+    + stats: List<WeaponStats>
+    ---
+}
+
+class WeaponStats {
+    + speed: float
+    + damage: int
+    + size: float
+    + amount: float
+    + range: float
+}
+
+class PhaserWeapon {
+    {static} Instance: PhaserWeapon
+    - bulletPool: ObjectPooler
+    ---
+    + Shoot(): void
+    + LevelUp(): void
+}
+
+' ==================== ENEMIES ====================
+ABSTRACT class Enemy {
+    # spriteRenderer: SpriteRenderer
+    - flashWhite: FlashWhiite
+    # destroyEffectPool: ObjectPooler
+    # lives: int
+    # maxLives: int
+    # damage: int
+    # experienceToGive: int
+    # hitSound: AudioSource
+    # destroySound: AudioSource
+    # speedX: float
+    # speedY: float
+    ---
+    + {virtual} Awake(): void
+    + {virtual} OnEnable(): void
+    + {virtual} Start(): void
+    + {virtual} Update(): void
+    + {virtual} OnCollisionEnter2D(collision: Collision2D): void
+    + {virtual} TakeDamage(damage: int): void
+}
+
+class Boss1 {
+    - animator: Animator
+    - charging: bool
+    - switchInterval: float
+    - switchTimer: float
+    ---
+    + {override} Awake(): void
+    + {override} OnEnable(): void
+    + {override} Start(): void
+    + {override} Update(): void
+    - EnterPatrolState(): void
+    - EnterChargeState(): void
+    + {override} OnCollisionEnter2D(collision: Collision2D): void
+}
+
+class Boss2 {
+    - animator: Animator
+    - charging: bool
+    ---
+    + {override} Awake(): void
+    + {override} OnEnable(): void
+    + {override} Start(): void
+    + {override} Update(): void
+    - EnterIdleState(): void
+    - EnterChargeState(): void
+}
+
+class Locustmorph {
+    - frames: List<Frames>
+    - enemyVariant: int
+    - charging: bool
+    ---
+    + {override} OnEnable(): void
+    + {override} Start(): void
+    + {override} Update(): void
+    - EnterIdle(): void
+    - EnterCharge(): void
+    + {override} TakeDamage(damage: int): void
+}
+
+class Frames {
+    + sprites: Sprite[]
+}
+
+' ==================== OBSTACLES ====================
+class Asteroid {
+    - spriteRenderer: SpriteRenderer
+    - rb: Rigidbody2D
+    - flashWhite: FlashWhiite
+    - destroyEffectPool: ObjectPooler
+    - lives: int
+    - maxLives: int
+    - damage: int
+    - experienceToGive: int
+    - sprites: Sprite[]
+    - pushX: float
+    - pushY: float
+    ---
+    - OnEnable(): void
+    - Start(): void
+    - OnCollisionEnter2D(collision: Collision2D): void
+    + TakeDamage(damage: int, giveExperience: bool): void
+}
+
+' ==================== SPAWNING ====================
+class ObjectSpawners {
+    - minPos: Transform
+    - maxPos: Transform
+    - waveNumber: int
+    - waves: List<Wave>
+    ---
+    - SpawnObject(): void
+    + RandomSpawnPosition(): Vector2
+}
+
+class Wave {
+    + pool: ObjectPooler
+    + spawnTimer: float
+    + spawnInterval: float
+    + objectsPerWave: int
+    + spawnedObjectsCount: int
+}
+
+class ObjectPooler {
+    + prefab: GameObject
+    + poolSize: int
+    - pool: List<GameObject>
+    ---
+    - CreatePool(): void
+    - CreateNewObject(): GameObject
+    + GetPooledObject(): GameObject
+}
+
+' ==================== UTILITIES ====================
+class FlashWhiite {
+    + Flash(): void
+    + Reset(): void
+}
+
+class FaceMovementDirection {
+    - previousPosition: Vector3
+    - moveDirection: Vector3
+    - targetRotation: Quaternion
+    - rotationSpeed: float
+}
+
+' ==================== RELATIONSHIPS ====================
+
+' Managers
+GameManager --> UIController
+GameManager --> AudioManager
+GameManager --> ObjectPooler
+
+' Player
+PlayerController --> PhaserWeapon
+PlayerController --> AudioManager
+PlayerController --> UIController
+PlayerController --> GameManager
+PlayerController --> ObjectPooler
+PlayerController --> FlashWhiite
+
+' Weapons
+PhaserWeapon --|> Weapon
+PhaserWeapon --> ObjectPooler
+Weapon *-- WeaponStats
+
+' Enemies
+Enemy <|-- Boss1
+Enemy <|-- Boss2
+Enemy <|-- Locustmorph
+Enemy --> AudioManager
+Enemy --> PlayerController
+Enemy --> ObjectPooler
+Enemy --> FlashWhiite
+Locustmorph *-- Frames
+
+' Obstacles
+Asteroid --> AudioManager
+Asteroid --> PlayerController
+Asteroid --> ObjectPooler
+Asteroid --> FlashWhiite
+
+' Spawning
+ObjectSpawners --> ObjectPooler
+ObjectSpawners --> GameManager
+ObjectSpawners *-- Wave
+Wave --> ObjectPooler
+
+' Utilities
+FaceMovementDirection --> GameManager
+
+note right of GameManager
+  Singleton Pattern
+  Manages game flow & world speed
+  Handles Boss spawning (after 5 kills)
+end note
+
+note right of PlayerController
+  Singleton Pattern
+  Manages player movement & stats
+  Health, Energy, Level system
+  Weapon control
+end note
+
+note right of Enemy
+  Abstract base class
+  Inherited by Boss1, Boss2, Locustmorph
+  Virtual methods for overriding
+end note
+
+note right of ObjectPooler
+  Reuses objects instead of Instantiate/Destroy
+  Improves performance
+end note
+
+@enduml
